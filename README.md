@@ -103,6 +103,7 @@ npm install --save-dev electron
 
 # После клонирования репозитория, нужно выполнить npm ci в папке проекта.
 # Это установит все пакеты описанны в package.json и package-lock.json.
+# И можно сразу запускать npm run start
 npm ci
 ```
 
