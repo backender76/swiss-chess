@@ -47,7 +47,7 @@ git add .
 git commit -m "Первый коммит"
 ```
 
-Теперь идём на https://github.com, создаём там новый репозиторий.
+Теперь идём на [github.com](https://github.com), создаём там новый репозиторий.
 
 На самом деле я сделал commit немного позже, иначе этого текста тут не было бы =)
 
@@ -56,4 +56,35 @@ git commit -m "Первый коммит"
 ```bash
 git remote add origin git@github.com:backender76/swiss-chess.git
 git push -u origin master
+```
+
+### Git flow
+
+Настоящий [GitFlow](https://www.atlassian.com/ru/git/tutorials/comparing-workflows/gitflow-workflow) использовать не будем, но какой-то Flow должен быть. Договоримся так:
+
+- Фичи пилим в отдельных ветках стартуя их из `develop`
+- Рабочий код сливаем в ветку `develop`
+- Релизы в ветке `master`, помечаем их тегами
+
+Например, возникла идея какой-то новой мега-фичи, порядок действий должен быть такой:
+- Затянуть ветку `develop` с `origin`
+- От нее ответвить свою ветку `mega-feature`
+- Пилим `mega-feature` периодически затягивая `develop` и выполняя от нее `rebase`
+- Как фича закончена, создаём PR (pull request) в `develop`
+
+Настало время создать develop:
+
+```bash
+# ПРОСТО ДЛЯ ПРИМЕРА. ПОВТОРЯТЬ НЕ НУЖНО Т.К. ВЕТКА УЖЕ ЕСТЬ
+git checkout -b develop
+git add README.md
+git commit -m "Первый коммит в develop (Git flow)"
+```
+
+### Как скопировать код проекта
+
+При наличии Git на рабочей машине все довольно просто:
+
+```bash
+git clone git@github.com:backender76/swiss-chess.git
 ```
