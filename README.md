@@ -79,6 +79,7 @@ git push -u origin master
 git checkout -b develop
 git add README.md
 git commit -m "Первый коммит в develop (Git flow)"
+git push -u origin develop
 ```
 
 ### Как скопировать код проекта
@@ -87,4 +88,50 @@ git commit -m "Первый коммит в develop (Git flow)"
 
 ```bash
 git clone git@github.com:backender76/swiss-chess.git
+```
+
+### Установка Electron
+
+Для установки потребуется потребуется [Node.JS](https://nodejs.org/en). Я использовал v23.3.0. Можно поставить какая поставится, а потом поменять с помощью [npm n](https://www.npmjs.com/package/n).
+
+Далее все по зветам [мануала по Electron](https://www.electronjs.org/ru/docs/latest/tutorial/quick-start):
+
+```bash
+# Electron ставился так. Этого делать 2-й раз не нужно!!!
+npm init
+npm install --save-dev electron
+
+# После клонирования репозитория, нужно выполнить npm ci в папке проекта.
+# Это установит все пакеты описанны в package.json и package-lock.json.
+npm ci
+```
+
+После установки электрона появится папка `node_modules`. Там будут все зависимости проекта включая сам электрон. Чтобы `GIT` не пытался их сохранить в репозитории сразу создаём файл `.gitignore` и прописмываем туда `node_modules`. В репозиторий это совать не принято. Описание зависимостей будет в `package.json` и `package-lock.json`. Любой кто клонирует к себе репозиторий сможет с лёгкостью установить их командой `npm ci`.
+
+
+```bash
+# Основное
+npm init
+npm install --save-dev electron
+npm install --save-dev @electron-forge/cli
+
+# Это для Linux-a если нужны rpm-пакеты
+sudo apt-get update
+sudo apt-get install rpm
+npm install --save-dev @electron-forge/maker-rpm
+
+# Генерим forge.config.js
+# Мне не нужен rpm, так что соответствующий блок в конфиге закомментирован
+npx electron-forge import
+
+# Далее я добавил index.html, main.js и preload.js по примеру в мануале.
+
+# Уже можно пробовать запустить приложение
+npm run start
+
+# Создание билда
+npx electron-forge make
+
+# Установка. Чтобы сработало версия должна меняться.
+sudo dpkg -i out/make/deb/x64/swiss-chess_1.0.1_amd64.deb
 ```
